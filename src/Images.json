@@ -1,0 +1,82 @@
+[
+    {
+        "id": 1,
+        "src": "/src/assets/placeholder.png",
+        "user": "User1",
+        "name": "Image 1 Name",
+        "desc": "Image 1 Desc",
+        "date": "2024-11-11"
+    },
+    {
+        "id": 2,
+        "src": "/src/assets/Untitled.png",
+        "user": "User2",
+        "name": "Image 2 Name",
+        "desc": "Image 2 Desc",
+        "date": "2024-11-25"
+    },
+    {
+        "id": 3,
+        "src": "/src/assets/placeholder.png",
+        "user": "User3",
+        "name": "Image 3 Name",
+        "desc": "Image 3 Desc",
+        "date": "2024-11-25"
+    },
+    {
+        "id": 4,
+        "src": "/src/assets/placeholder.png",
+        "user": "User4",
+        "name": "Image 4 Name",
+        "desc": "Image 4 Desc",
+        "date": "date"
+    },
+    {
+        "id": 5,
+        "src": "/src/assets/placeholder.png",
+        "user": "User5",
+        "name": "Image 5 Name",
+        "desc": "Image 5 Desc",
+        "date": "date"
+    },
+    {
+        "id": 6,
+        "src": "/src/assets/placeholder.png",
+        "user": "User6",
+        "name": "Image 6 Name",
+        "desc": "Image 6 Desc",
+        "date": "date"
+    },
+    {
+        "id": 7,
+        "src": "/src/assets/placeholder.png",
+        "user": "User7",
+        "name": "Image 7 Name",
+        "desc": "Image 7 Desc",
+        "date": "date"
+    },
+    {
+        "id": 8,
+        "src": "/src/assets/placeholder.png",
+        "user": "User8",
+        "name": "Image 8 Name",
+        "desc": "Image 8 Desc",
+        "date": "date"
+    },
+    {
+        "id": 9,
+        "src": "/src/assets/placeholder.png",
+        "user": "User9",
+        "name": "Image 9 Name",
+        "desc": "Image 9 Desc",
+        "date": "date"
+    },
+    {
+        "id": 10,
+        "src": "/src/assets/placeholder.png",
+        "user": "User10",
+        "name": "Image 10 Name",
+        "desc": "Image 10 Desc",
+        "date": "date"
+    }
+]
