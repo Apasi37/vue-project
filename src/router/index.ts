@@ -19,11 +19,6 @@ const router = createRouter({
       component: () => import('../views/ImageView.vue'),
     },
     {
-      path: '/upload',
-      name: 'upload',
-      component: () => import('../views/UploadView.vue'),
-    },
-    {
       path: '/admin',
       name: 'admin',
       component: () => import('../views/AdminView.vue'),
@@ -41,7 +36,9 @@ const router = createRouter({
     {
       path: "/:catchAll(.*)",
       name: "NotFound",
-      component: () => import('../views/AdminView.vue'),
+      redirect: to => {
+        return '/'
+      },
     }
   ],
 })

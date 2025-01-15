@@ -5,12 +5,12 @@
                 <div class="text-h1 text-indigo-lighten-4 ephesis-regular">RegulArt</div>
                 <v-text-field class="mt-4" label="Search" density="compact" hide-details single-line append-inner-icon="mdi-magnify" v-model="text" @keyup.enter="search"></v-text-field>
                 <div class="ma-4">
-                    <RouterLink to="/posts"><v-btn>Posts</v-btn></RouterLink>
+                    <RouterLink to="/posts?page=1"><v-btn>Posts</v-btn></RouterLink>
                 </div>
                 <div class="ma-4">
-                    <RouterLink v-if="false" to="/profile"><v-btn append-icon="mdi-account-circle" class="ma-4">Username</v-btn></RouterLink>
-                    <RouterLink v-if="true" to="/login"><v-btn class="ma-4">Login</v-btn></RouterLink>
-                    <RouterLink v-if="false" to="/admin"><v-btn class="ma-4">Admin</v-btn></RouterLink>
+                    <RouterLink v-if="user.loggedIn" to="/profile"><v-btn append-icon="mdi-account-circle" class="ma-4">{{user.name}}</v-btn></RouterLink>
+                    <RouterLink v-if="!user.loggedIn" to="/login"><v-btn class="ma-4">Login</v-btn></RouterLink>
+                    <RouterLink v-if="user.role == 'admin'" to="/admin"><v-btn class="ma-4">Admin Panel</v-btn></RouterLink>
                 </div>
             </v-col>
         </v-row>
@@ -19,15 +19,17 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useUserStore } from '../stores/user'
 export default defineComponent({
     data(){
         return{
-            text: ""
+            text: "",
+            user: useUserStore()
         }
     },
     methods:{
         search(){
-            this.$router.push({ path: '/posts', query: { search: this.text }})
+            this.$router.push({ path: '/posts/1', query: { search: this.text }})
         },
     },
 })

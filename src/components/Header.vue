@@ -4,16 +4,19 @@
         <v-spacer></v-spacer>
         <v-text-field label="Search" density="compact" hide-details single-line append-inner-icon="mdi-magnify" v-model="text" @keyup.enter="search"></v-text-field>
         <v-spacer></v-spacer>
-        <RouterLink v-if="true" to="/profile"><v-btn append-icon="mdi-account-circle" class="ma-4">Username</v-btn></RouterLink>
+        <RouterLink v-if="user.loggedIn" to="/profile"><v-btn append-icon="mdi-account-circle" class="ma-4">{{user.name}}</v-btn></RouterLink>
+        <RouterLink v-if="!user.loggedIn" to="/login"><v-btn class="ma-4">Login</v-btn></RouterLink>
     </v-toolbar>
 </template>
 
 <script lang="ts">
+import { useUserStore } from '../stores/user'
 import { defineComponent } from 'vue';
 export default defineComponent({
     data(){
         return{
-            text: ""
+            text: "",
+            user: useUserStore()
         }
     },
     methods:{

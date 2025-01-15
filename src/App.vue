@@ -1,7 +1,3 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-</script>
-
 <template>
   <v-app class="bg-blue-grey-darken-4">
     <router-view v-slot="{ Component }">
@@ -12,10 +8,15 @@ import { RouterLink, RouterView } from 'vue-router'
   </v-app>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
 
-}
+import { defineComponent } from 'vue';
+export default defineComponent({
+  components:{
+    RouterLink, RouterView
+  }
+})
 </script>
 
 <style>
