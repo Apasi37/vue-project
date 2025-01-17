@@ -5,6 +5,13 @@
         "user": "User1",
         "date": "2024-11-25",
         "comment": "comment text"
+    },
+    {
+        "id": 2,
+        "imgId": 1,
+        "user": "User1",
+        "date": "2024-11-25",
+        "comment": "comment text"
     }
     
 ]

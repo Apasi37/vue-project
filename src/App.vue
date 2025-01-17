@@ -10,12 +10,26 @@
 
 <script lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import ImagesData from './Images.json'
+import CommentsData from './Comments.json'
+import UsersData from './Users.json'
 
 import { defineComponent } from 'vue';
 export default defineComponent({
   components:{
     RouterLink, RouterView
-  }
+  },
+  mounted() {
+    if(!localStorage.getItem("Images")){
+      localStorage.setItem("Images", JSON.stringify(ImagesData));
+    }
+    if(!localStorage.getItem("Comments")){
+      localStorage.setItem("Comments", JSON.stringify(CommentsData));
+    }
+    if(!localStorage.getItem("Users")){
+      localStorage.setItem("Users", JSON.stringify(UsersData));
+    }
+  },
 })
 </script>
 

@@ -13,6 +13,11 @@ export const useUserStore = defineStore('user', {
         this.loggedIn = true
         this.name = username
         this.role = role
+      },
+      logout(){
+        this.loggedIn = false
+        this.name = "username"
+        this.role = "role"
       }
     }
   })

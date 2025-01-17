@@ -3,34 +3,39 @@
         <v-row justify="center" align="center" class="mt-16">
             <v-col cols="4" align="center">
                 <div class="text-h1 text-indigo-lighten-4 ephesis-regular">RegulArt</div>
-                <v-text-field class="mt-4" label="Search" density="compact" hide-details single-line append-inner-icon="mdi-magnify" v-model="text" @keyup.enter="search"></v-text-field>
+                <SearchBar class="mt-10"></SearchBar>
                 <div class="ma-4">
-                    <RouterLink to="/posts?page=1"><v-btn>Posts</v-btn></RouterLink>
+                    <RouterLink to="/posts"><v-btn>Posts</v-btn></RouterLink>
                 </div>
                 <div class="ma-4">
-                    <RouterLink v-if="user.loggedIn" to="/profile"><v-btn append-icon="mdi-account-circle" class="ma-4">{{user.name}}</v-btn></RouterLink>
+                    <v-btn append-icon="mdi-account-circle" class="ma-4">{{user.name}}</v-btn>
                     <RouterLink v-if="!user.loggedIn" to="/login"><v-btn class="ma-4">Login</v-btn></RouterLink>
                     <RouterLink v-if="user.role == 'admin'" to="/admin"><v-btn class="ma-4">Admin Panel</v-btn></RouterLink>
                 </div>
+                <v-btn v-if="user.role == 'admin'" @click="clearStorage">clear storage</v-btn>
             </v-col>
         </v-row>
     </v-container>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
 import { useUserStore } from '../stores/user'
+import SearchBar from '../components/SearchBar.vue';
+
+import { defineComponent } from 'vue';
 export default defineComponent({
+    components:{
+        SearchBar
+    },
     data(){
         return{
-            text: "",
-            user: useUserStore()
+            user: useUserStore(),
         }
     },
     methods:{
-        search(){
-            this.$router.push({ path: '/posts/1', query: { search: this.text }})
-        },
-    },
+        clearStorage(){
+            localStorage.clear();
+        }
+    }
 })
 </script>

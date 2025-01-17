@@ -2,55 +2,31 @@
 <div>
 <Header></Header>
 
-<div id="admin_panel">
+<v-row class="ma-12">
+    <v-col class="ma-12">
+        <v-btn v-for="i in TablesData" @click="setTable(i)">{{ i }}</v-btn>
+        <v-table density="compact">
+            <thead>
+                <tr>
+                    <th class="text-left" v-for="i in keys">
+                        {{ i }}
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="i in table.slice((page-1)*20,page*20)">
+                    <td v-for="j in i">{{ j }}</td>
+                    <v-btn>Edit</v-btn>
+                    <v-btn>Delete</v-btn>
+                </tr>
+            </tbody>
+        </v-table>
+        <RouterLink v-for="i in Math.ceil(table.length/20)" :to="'/admin?page='+i">
+            <v-btn>{{ i }}</v-btn>
+        </RouterLink>
+    </v-col>
+</v-row>
 
-<form method="GET" id="admin_tables">
-    <h1>Tables</h1>
-    <input type="submit" name="selectedTable" value="'.$tables[$i].'" >
-</form>
-
-<table id="admin_tableContent">
-
-    <tr>
-        <th class="admin_column">'.$columns[$i].'</th>
-        <th><button type="button" onclick="toggleAdd()">Add</button></th>
-    </tr>
-    <tr>
-        <th class="admin_row">'.$rows[$i][$columns[$j]].'</th>
-        <th><button type="button" onclick="toggleEdit('.$rows[$i][$columns[0]].')">Edit</button></th>
-        <th>
-            <form method="POST" action="delete.php">
-                <input type="submit" name="delete" value="Delete">
-                <input type="hidden" id="table" name="table" value="'.$selectedTable.'">
-                <input type="hidden" id="id" name="id" value="'.$rows[$i][$columns[0]].'">
-            </form>
-        </th>
-    </tr>
-</table>
-</div>
-
-<div id="admin_add">
-    <form method="POST" action="add.php">
-        <div>Adding into table: '.$selectedTable.'</div>
-        <input type="hidden" name="table" value="'.$selectedTable.'">
-        <label for="'.$columns[$i].'">'.$columns[$i].'</label>
-        <input type="text" name="'.$columns[$i].'" value="" required>
-        <input type="submit" name="add" value="Add">
-    </form>
-</div>
-
-<div id="admin_edit">
-<form method="POST" action="edit.php">
-    <input type="hidden" id="editid" name="editid" value="">
-        <div>Updating in table: '.$selectedTable.', row id: <div id="editInfo"></div></div>
-        <input type="hidden" name="table" value="'.$selectedTable.'">
-        <label for="'.$columns[$i].'">'.$columns[$i].'</label>
-        <input type="text" name="'.$columns[$i].'" value="">
-    <input type="submit" name="edit" value="Edit">
-</form>
-</div>
-
-<div id="overlay" onclick="overlayOff()"></div>
 <Footer></Footer>
 </div>
 </template>
@@ -58,8 +34,7 @@
 <script lang="ts">
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
-
-import Images from '../Images.json';
+import { useUserStore } from '../stores/user';
 
 import { defineComponent } from 'vue';
 export default defineComponent({
@@ -68,14 +43,49 @@ export default defineComponent({
     },
     data(){
         return{
-            
+            user: useUserStore(),
+            ImagesData: JSON.parse(localStorage.getItem("Images") || ""),
+            CommentsData: JSON.parse(localStorage.getItem("Comments") || ""),
+            UsersData: JSON.parse(localStorage.getItem("Users") || ""),
+            TablesData: ["Images","Comments","Users"],
+            table: [],
+            keys: [""],
+            page: Number(this.$route.query.page) || 1
         }
     },
     methods:{
-        
+        setTable(selected: string){
+            switch(selected){
+                case "Images":
+                    this.table = this.ImagesData;
+                    break;
+                case "Comments":
+                    this.table = this.CommentsData;
+                    break;
+                case "Users":
+                    this.table = this.UsersData;
+                    break;
+            }
+            this.keys = Object.keys(this.table[0]);
+            this.goToPage(1)
+        },
+        goToPage(page: number){
+            this.$router.push({query: { page: page }})
+        },
     },
     mounted() {
-        
+        if(this.user.role != "admin"){
+            //this.$router.push({ path: '/'})
+        }
+        this.table = this.ImagesData;
+        this.keys = Object.keys(this.table[0]);
     },
+    watch:{
+        '$route.query.page'(newVal, oldVal){
+            if (newVal != oldVal){
+                this.page = newVal
+            }
+        }
+    }
 })
 </script>

@@ -68,9 +68,6 @@
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
 
-import ImagesData from '../Images.json';
-import CommentsData from '../Comments.json';
-
 import { defineComponent } from 'vue';
 export default defineComponent({
     components: {
@@ -78,6 +75,8 @@ export default defineComponent({
     },
     data(){
         return{
+            ImagesData: JSON.parse(localStorage.getItem("Images") || ""),
+            CommentsData: JSON.parse(localStorage.getItem("Comments") || ""),
             Img: {} as {id: number,src: string,user: string, name: string, desc: string, date: string},
             Comments: [] as { id: number, imgId: number, user: string, date: string, comment: string }[],
             imgWidth: 0, imgHeight: 0, imgMaxW:1000, imgMaxH:1000, imgSize: 0, imgSizeUnit: "B",
@@ -97,16 +96,16 @@ export default defineComponent({
             }
         },
         getImage(){
-            for(let i=0; i<ImagesData.length; i++){
-                if(ImagesData[i].id == Number(this.$route.params.id)){
-                    this.Img = ImagesData[i]; break;
+            for(let i=0; i<this.ImagesData.length; i++){
+                if(this.ImagesData[i].id == Number(this.$route.params.id)){
+                    this.Img = this.ImagesData[i]; break;
                 }
             }
         },
         getComments(){
-            for(let i=0; i<CommentsData.length; i++){
-                if(CommentsData[i].imgId == Number(this.$route.params.id)){
-                    this.Comments.push(CommentsData[i]) ;
+            for(let i=0; i<this.CommentsData.length; i++){
+                if(this.CommentsData[i].imgId == Number(this.$route.params.id)){
+                    this.Comments.push(this.CommentsData[i]) ;
                 }
             }
         }

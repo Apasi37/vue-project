@@ -1,7 +1,7 @@
 <template>
 <v-row align="center" justify="center">
     <v-col cols="5" class="bg-white">
-        <div class="text-h3 text-indigo-lighten-4 ephesis-regular ml-2">RegulArt</div>
+        <RouterLink to="/" style="text-decoration: none;"><div class="text-h3 text-indigo-lighten-4 ephesis-regular mb-6">RegulArt</div></RouterLink>
         <v-form v-if="!user.loggedIn">
             <v-text-field label="Email" density="comfortable" :rules="rulesEmail" v-model="email"></v-text-field>
             <v-text-field label="Password" density="comfortable" :rules="rulesPassword" v-model="password"></v-text-field>
@@ -9,18 +9,16 @@
         </v-form>
         <div v-else>
             <div>You are logged in as {{ user.name }}</div>
-            <router-link to="/">Home</router-link>
         </div>
         <div v-if="error">Incorret email or password</div>
+        <div class="mt-6">Want to make a new account?<router-link to="/register" class="ml-6"><v-btn>Register</v-btn></router-link></div>
     </v-col> 
 </v-row>
-
 </template>
 
 <script lang="ts">
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
-import Users from '../Users.json';
 import { useUserStore } from '../stores/user';
 
 import { defineComponent } from 'vue';
@@ -31,13 +29,9 @@ export default defineComponent({
     data(){
         return {
             error: false,
-            Users,
+            Users: JSON.parse(localStorage.getItem("Users") || ""),
             user: useUserStore(),
             email: "", password: "",
-            rulesName: [
-                (value: any) => !!value || 'Required.',
-                (value: any) => (value || '').length <= 40 || 'Max 40 characters',
-            ],
             rulesEmail: [
                 (value: any) => !!value || 'Required.',
                 (value: any) => (value || '').length <= 254 || 'Max 254 characters',

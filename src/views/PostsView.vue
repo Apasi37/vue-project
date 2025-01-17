@@ -4,15 +4,11 @@
     <Header></Header>
     <v-container class="mt-16">
         <v-row class="mt-4">
-            <v-col class="d-flex child-flex justify-center align-center" v-for="i in Images.slice((page-1)*20,page*20)">
-                <RouterLink :to="'posts/'+i.id">
-                    <v-img :src="i.src" width="300" max-height="300"></v-img>
-                </RouterLink>
-            </v-col>
+            <Post class="ma-6" v-for="i in ImagesData.slice((page-1)*20,page*20)" :id="i.id" :src="i.src"></Post>
         </v-row>
         <v-row>
             <v-col class="text-center">
-                <RouterLink v-for="i in Math.ceil(Images.length/20)" :to="'/posts?page='+i">
+                <RouterLink v-for="i in Math.ceil(ImagesData.length/20)" :to="'/posts?page='+i">
                     <v-btn>{{ i }}</v-btn>
                 </RouterLink>
             </v-col>
@@ -26,26 +22,17 @@
 <script lang="ts">
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
-
-import Images from '../Images.json';
+import Post from '../components/Post.vue';
 
 import { defineComponent } from 'vue';
 export default defineComponent({
     components:{
-        Header, Footer
+        Header, Footer, Post
     },
     data(){
         return{
-            Images,
-            page: Number(this.$route.query.page),
-        }
-    },
-    methods:{
-        goToPage(page: number){
-            this.$router.push({query: { page: page }})
-        },
-        getPage(){
-            console.log(this.page)
+            ImagesData: JSON.parse(localStorage.getItem("Images") || ""),
+            page: Number(this.$route.query.page) || 1,
         }
     },
     watch:{
@@ -54,6 +41,7 @@ export default defineComponent({
                 this.page = newVal
             }
         }
-    }
+    },
+    
 })
 </script>
