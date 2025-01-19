@@ -34,6 +34,11 @@ const router = createRouter({
       component: () => import('../views/RegisterView.vue'),
     },
     {
+      path: '/upload',
+      name: 'upload',
+      component: () => import('../views/UploadView.vue'),
+    },
+    {
       path: "/:catchAll(.*)",
       name: "NotFound",
       redirect: to => {

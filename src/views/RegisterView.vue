@@ -1,16 +1,21 @@
 <template>
-    <v-row align="center" justify="center">
-        <v-col cols="5" class="bg-white">
+<div class="mt-16">
+    <v-row align="center" justify="center" class="bg-blue-grey-darken-4 mt-16">
+        <v-col cols="5" class="bg-blue-grey-darken-1 rounded">
             <RouterLink to="/" style="text-decoration: none;"><div class="text-h3 text-indigo-lighten-4 ephesis-regular mb-6">RegulArt</div></RouterLink>
             <v-form v-if="!user.loggedIn">
-                <v-text-field label="Username" density="comfortable" :rules="rulesName" v-model="username"></v-text-field>
-                <v-text-field label="Email" density="comfortable" :rules="rulesEmail" v-model="email"></v-text-field>
-                <v-text-field label="Password" density="comfortable" :rules="rulesPassword" v-model="password"></v-text-field>
-                <v-btn class="mt-2" block @click="register(username,email,password)">Register</v-btn>
+                <v-text-field prepend-inner-icon="mdi-account" label="Username" density="comfortable" :rules="rulesName" v-model="username"></v-text-field>
+                <v-text-field prepend-inner-icon="mdi-email-outline" label="Email" density="comfortable" :rules="rulesEmail" v-model="email"></v-text-field>
+                <v-text-field 
+                    label="Password" density="comfortable" :rules="rulesPassword" v-model="password" prepend-inner-icon="mdi-lock-outline"
+                    :append-inner-icon="visible ? 'mdi-eye-off' : 'mdi-eye'" :type="visible ? 'text' : 'password'" @click:append-inner="visible = !visible"
+                ></v-text-field>
+                <v-btn class="mt-2 text-white" variant="outlined" block @click="register(username,email,password)">Register</v-btn>
             </v-form>
-            <div v-if="error">Incorret email or password</div>
+            <div v-if="error">Error</div>
         </v-col> 
     </v-row>
+</div>
 </template>
 
 <script lang="ts">
@@ -28,7 +33,7 @@ export default defineComponent({
             error: false,
             Users: JSON.parse(localStorage.getItem("Users") || ""),
             user: useUserStore(),
-            email: "", password: "", username: "",
+            email: "", password: "", username: "", visible: false,
             rulesName: [
                 (value: any) => !!value || 'Required.',
                 (value: any) => (value || '').length <= 40 || 'Max 40 characters',

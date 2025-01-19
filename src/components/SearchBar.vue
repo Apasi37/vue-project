@@ -1,5 +1,5 @@
 <template>
-    <v-text-field label="Search" density="compact" hide-details single-line append-inner-icon="mdi-magnify" v-model="text" @keyup.enter="search(text)"></v-text-field>
+    <v-text-field label="Search" density="compact" hide-details append-inner-icon="mdi-magnify" v-model="text" @keyup.enter="search(text)" @click:append-inner="search(text)"></v-text-field>
 </template>
 
 <script lang="ts">

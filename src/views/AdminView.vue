@@ -3,9 +3,11 @@
 <Header></Header>
 
 <v-row class="ma-12">
-    <v-col class="ma-12">
-        <v-btn v-for="i in TablesData" @click="setTable(i)">{{ i }}</v-btn>
-        <v-table density="compact">
+    <v-col class="ma-2">
+        <div align="center" justify="center">
+            <v-btn class="text-white ma-1" variant="outlined" v-for="i in TablesData" @click="setTable(i)">{{ i }}</v-btn>
+        </div>
+        <v-table density="compact" class="bg-black bg-blue-grey-darken-1 rounded">
             <thead>
                 <tr>
                     <th class="text-left" v-for="i in keys">
@@ -16,14 +18,14 @@
             <tbody>
                 <tr v-for="i in table.slice((page-1)*20,page*20)">
                     <td v-for="j in i">{{ j }}</td>
-                    <v-btn>Edit</v-btn>
-                    <v-btn>Delete</v-btn>
                 </tr>
             </tbody>
         </v-table>
-        <RouterLink v-for="i in Math.ceil(table.length/20)" :to="'/admin?page='+i">
-            <v-btn>{{ i }}</v-btn>
-        </RouterLink>
+        <div align="center" justify="center">
+            <RouterLink v-for="i in Math.ceil(table.length/20)" :to="'/admin?page='+i">
+                <v-btn class="text-white ma-1" variant="outlined">{{ i }}</v-btn>
+            </RouterLink>
+        </div>
     </v-col>
 </v-row>
 
@@ -75,7 +77,7 @@ export default defineComponent({
     },
     mounted() {
         if(this.user.role != "admin"){
-            //this.$router.push({ path: '/'})
+            this.$router.push({ path: '/'})
         }
         this.table = this.ImagesData;
         this.keys = Object.keys(this.table[0]);

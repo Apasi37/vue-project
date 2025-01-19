@@ -5,14 +5,14 @@
                 <div class="text-h1 text-indigo-lighten-4 ephesis-regular">RegulArt</div>
                 <SearchBar class="mt-10"></SearchBar>
                 <div class="ma-4">
-                    <RouterLink to="/posts"><v-btn>Posts</v-btn></RouterLink>
+                    <RouterLink to="/posts"><v-btn class="ma-4 text-white" variant="outlined">Posts</v-btn></RouterLink>
                 </div>
                 <div class="ma-4">
-                    <v-btn append-icon="mdi-account-circle" class="ma-4">{{user.name}}</v-btn>
-                    <RouterLink v-if="!user.loggedIn" to="/login"><v-btn class="ma-4">Login</v-btn></RouterLink>
-                    <RouterLink v-if="user.role == 'admin'" to="/admin"><v-btn class="ma-4">Admin Panel</v-btn></RouterLink>
+                    <v-btn v-if="user.loggedIn" append-icon="mdi-account-circle" class="ma-4 text-white" variant="outlined">{{user.name}}</v-btn>
+                    <RouterLink v-if="!user.loggedIn" to="/login"><v-btn class="ma-4 text-white" variant="outlined">Login</v-btn></RouterLink>
+                    <RouterLink v-if="user.role == 'admin'" to="/admin"><v-btn class="ma-4 text-white" variant="outlined">Admin Panel</v-btn></RouterLink>
                 </div>
-                <v-btn v-if="user.role == 'admin'" @click="clearStorage">clear storage</v-btn>
+                <v-btn v-if="true" @click="clearStorage">clear storage</v-btn>
             </v-col>
         </v-row>
     </v-container>
